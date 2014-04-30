@@ -44,6 +44,7 @@ function VariantOptions(params) {
 
 
   function init() {
+    console.log("VO - init")
     divs = $('#product-variants .variant-options');
     disable(divs.find('a.option-value').addClass('locked'));
     update();
@@ -59,10 +60,12 @@ function VariantOptions(params) {
   }
 
   function get_index(parent) {
+    console.log("VO - get_index")
     return parseInt($(parent).attr('class').replace(/[^\d]/g, ''));
   }
 
   function update(i) {
+    console.log("VO - update")
     index = isNaN(i) ? index : i;
     parent = $(divs.get(index));
     buttons = parent.find('a.option-value');
@@ -70,10 +73,12 @@ function VariantOptions(params) {
   }
 
   function disable(btns) {
+    console.log("VO - disable")
     return btns.removeClass('selected');
   }
 
   function enable(btns) {
+    console.log("VO - enable")
     bt = btns.not('.unavailable').removeClass('locked').unbind('click')
     if (!allow_select_outofstock && !allow_backorders)
       bt = bt.filter('.in-stock')
@@ -88,6 +93,7 @@ function VariantOptions(params) {
   }
 
   function inventory(btns) {
+    console.log("VO - inventory")
     var keys, variants, selected = {};
     var sels = $.map(divs.find('a.selected'), function(i) { return i.rel });
     $.each(sels, function(key, value) {
