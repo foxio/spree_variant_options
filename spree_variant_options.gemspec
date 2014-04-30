@@ -4,7 +4,7 @@ require "spree_variant_options/version"
 
 Gem::Specification.new do |s|
   s.name        = "spree_variant_options"
-  s.version     = 0.71
+  s.version     = 0.711
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Spencer Steffen", "Stephane Bounmy"]
   s.email       = ["spencer@citrusme.com", 'stephanebounmy@gmail.com']
