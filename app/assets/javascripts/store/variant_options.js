@@ -44,7 +44,7 @@ function VariantOptions(params) {
 
 
   function init() {
-    console.log("VO - init")
+    console.log("VO - init'd")
     divs = $('#product-variants .variant-options');
     disable(divs.find('a.option-value').addClass('locked'));
     update();
@@ -67,6 +67,7 @@ function VariantOptions(params) {
   function update(i) {
     console.log("VO - update")
     index = isNaN(i) ? index : i;
+    console.log("VO - update - index", index)
     parent = $(divs.get(index));
     buttons = parent.find('a.option-value');
     parent.find('a.clear-button').hide();
@@ -86,6 +87,7 @@ function VariantOptions(params) {
   }
 
   function advance() {
+    console.log("VO - advance")
     index++
     update();
     inventory(buttons.removeClass('locked'));
@@ -120,6 +122,7 @@ function VariantOptions(params) {
       } else {
         var count = 0;
         $.each(variants, function(key, value) {
+          console.log("key",key, "value", value)
           count += value.in_stock ? 1 : 0
         });
         $(element).addClass(count > 0 ? 'in-stock' : 'out-of-stock');
@@ -128,6 +131,7 @@ function VariantOptions(params) {
   }
 
   function get_variant_objects(rels) {
+    console.log("VO - get_variant_objects")
     var i, ids, obj, variants = {};
     if (typeof(rels) == 'string') { rels = [rels]; }
     var otid, ovid, opt, opv;
@@ -153,7 +157,7 @@ function VariantOptions(params) {
         }
       }
     } catch(error) {
-      //console.log(error);
+      console.log(error);
     }
     return variants;
   }
@@ -165,6 +169,7 @@ function VariantOptions(params) {
   // Find matching variants for selected option value
   // Set price or price range if matching variants have different prices.
   function find_variant() {
+    console.log("VO - find_variant")
     var selected = divs.find('a.selected');
     var variants = get_variant_objects(selected.get(0).rel);
     if (selected.length == divs.length) {
@@ -214,6 +219,7 @@ function VariantOptions(params) {
   }
 
   function clear(i) {
+    console.log("VO - clear")
     variant = null;
     update(i);
     enable(buttons.removeClass('selected'));
@@ -229,11 +235,13 @@ function VariantOptions(params) {
 
 
   function handle_clear(evt) {
+    console.log("VO - handle_clear")
     evt.preventDefault();
     clear(get_index(this));
   }
 
   function handle_click(evt) {
+    console.log("VO - handle_click")
     evt.preventDefault();
     variant = null;
     selection = [];
@@ -252,6 +260,7 @@ function VariantOptions(params) {
   }
 
   function handle_selected() {
+    console.log("VO - handle_seelcted")
     var selected = divs.find('a.selected');
     selected.each(function(){
       $this = $(this)
