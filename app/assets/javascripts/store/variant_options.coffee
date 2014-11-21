@@ -26,7 +26,7 @@ window.variantOptions = (params) ->
       $('#variant_id').val(variants[id].id)
       $('#cart-form button[type=submit]').attr('disabled', false)
       $("#cart-form .price").html variants[id].price
-      $("#cart-form .old_price").html variants[id].price
+      $("#cart-form .old_price").html variants[id].old_price
       return
 
 
