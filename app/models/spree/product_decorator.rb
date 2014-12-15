@@ -4,7 +4,8 @@ Spree::Product.class_eval do
   end
 
   def grouped_option_values
-    @_grouped_option_values ||= option_values.group_by(&:option_type)
+    values = option_values.reject { |ov| ov.name.include?("—") }
+    @_grouped_option_values ||= values.group_by(&:option_type)
     @_grouped_option_values.sort_by { |option_type, option_values| option_type.position }
   end
 
