@@ -10,8 +10,8 @@ Spree::Product.class_eval do
   end
 
   def variants_for_option_value(value)
-    @_variant_option_values ||= variants.includes(:option_values)
-    @_variant_option_values.select { |i| i.option_value_ids.include?(value.id) }
+    @_variants_for_option_value = variants.joins(:option_values).where(:spree_option_values => {:id => value.id})
+    @_variants_for_option_value.select { |v| v.in_stock? }
   end
 
   def variant_options_hash
