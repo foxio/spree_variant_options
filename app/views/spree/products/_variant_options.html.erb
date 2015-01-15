@@ -15,6 +15,7 @@
             <% values.sort_by{|a| a.name.split(" ")[0].to_i}.each do |value| %>
               <% classes = ["option-value"] %>
               <% unless (variants = @product.variants_for_option_value(value)).empty? %>
+                <% classes << ("in-stock") if index == 0 %>
                 <%= content_tag :option, value.presentation , :class => classes, :id => "option-#{value.id}" %>
               <% end %>
             <% end %>
