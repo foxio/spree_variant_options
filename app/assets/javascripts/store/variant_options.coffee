@@ -8,8 +8,8 @@ window.variantOptions = (params) ->
   # When the user selects a variant option...
   $(document).on "change", ".variant-option-values", ->
     parent = $(@).parents('.variant-options')
-    optionId = $(@).parents(".variant-options").attr("id").split("_")[2]
-    optionIndex = $(@).parents(".variant-options").data("index")
+    optionId = parent.attr("id").split("_")[2]
+    optionIndex = parent.data("index")
     elemId = $(@).find("option:selected").attr("id")
     elemId = if elemId then elemId.split("-")[1] else null
 
@@ -17,8 +17,10 @@ window.variantOptions = (params) ->
     if $(".variant-options").length == 1
       if $(@)[0].selectedIndex == 0
         $('#cart-form button[type=submit]').attr('disabled', true)
+        parent.removeClass('active')
         return
       $('#cart-form button[type=submit]').attr('disabled', false)
+      parent.addClass('active')
       variants = options[optionId][elemId]
       ids = for key of variants
         key
@@ -28,8 +30,8 @@ window.variantOptions = (params) ->
         $('#cart-form button[type=submit]').attr('disabled', false)
       else
         $('#cart-form button[type=submit]').attr('disabled', true)
-      $("#cart-form .price").html variants[id].price
-      $("#cart-form .old_price").html variants[id].old_price
+      $("#cart-form s.original").html variants[id].old_price
+      $("#cart-form p.current").html variants[id].price
       return
 
 
@@ -42,6 +44,7 @@ window.variantOptions = (params) ->
 
     # if this is the "select an option" option, reset availability on the other option and return
     if $(@)[0].selectedIndex == 0
+      parent.removeClass('active')
       otherOptionSelector.find(".option-value").each ->
         $(@).text($(@).text().replace("#{outOfStockStr} ", ""))
           .addClass("in-stock")
@@ -66,16 +69,21 @@ window.variantOptions = (params) ->
             $('#variant_id').val(variant[id].id)
             if $(@).find("option:selected").hasClass("in-stock")
               $('#cart-form button[type=submit]').attr('disabled', false)
+              parent.addClass('active')
             else
               $('#cart-form button[type=submit]').attr('disabled', true)
-            $("#cart-form .price").html variant[id].price
+              parent.removeClass('active')
+            $("#cart-form s.original").html variant[id].old_price
+            $("#cart-form p.current").html variant[id].price
 
     # reset "out of stock" display and update it
     if $(@).find("option:selected").hasClass("in-stock")
+      parent.addClass('active')
       otherOptionSelector.find(".option-value").each ->
         text = $(@).text().replace("#{outOfStockStr} ", "")
         $(@).text("#{text}")
     else
+      parent.removeClass('active')
       $(".option-value").each ->
         $(@).text($(@).text().replace("#{outOfStockStr} ", ""))
 
