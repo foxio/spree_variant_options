@@ -27,11 +27,13 @@ window.variantOptions = (params) ->
       id = ids[0]
       $('#variant_id').val(variants[id].id)
       if $(@).find("option:selected").hasClass("in-stock")
-        $('#cart-form button[type=submit]').attr('disabled', false)
+        $('#cart-form button[type=submit]').attr('disabled', false).html('<div class="icon"></div>카트에 담기')
       else
-        $('#cart-form button[type=submit]').attr('disabled', true)
-      $("#cart-form s.original").html variants[id].old_price
-      $("#cart-form p.current").html variants[id].price
+        $('#cart-form button[type=submit]').attr('disabled', true).html('<div class="icon"></div>사이즈를 골라주세요.')
+      $("#cart-form s.original.krw").html variants[id].old_price
+      $("#cart-form p.current.krw").html variants[id].price
+      $("#cart-form s.original.usd").html variants[id].old_price_usd
+      $("#cart-form p.current.usd").html variants[id].price_usd
       return
 
 
@@ -40,7 +42,7 @@ window.variantOptions = (params) ->
     otherOptionSelector = $("#option_type_" + otherOptionId)
 
     # disable the add to cart button – we'll reenable it later
-    $('#cart-form button[type=submit]').attr('disabled', true)
+    $('#cart-form button[type=submit]').attr('disabled', true).html('<div class="icon"></div>사이즈를 골라주세요.')
 
     # if this is the "select an option" option, reset availability on the other option and return
     if $(@)[0].selectedIndex == 0
@@ -68,13 +70,15 @@ window.variantOptions = (params) ->
           if $("#option-#{key}").val() == $("#option-#{key}").parent().val()
             $('#variant_id').val(variant[id].id)
             if $(@).find("option:selected").hasClass("in-stock")
-              $('#cart-form button[type=submit]').attr('disabled', false)
+              $('#cart-form button[type=submit]').attr('disabled', false).html('<div class="icon"></div>카트에 담기')
               parent.addClass('active')
             else
-              $('#cart-form button[type=submit]').attr('disabled', true)
+              $('#cart-form button[type=submit]').attr('disabled', true).html('<div class="icon"></div>사이즈를 골라주세요.')
               parent.removeClass('active')
-            $("#cart-form s.original").html variant[id].old_price
-            $("#cart-form p.current").html variant[id].price
+            $("#cart-form s.original.krw").html variant[id].old_price
+            $("#cart-form p.current.krw").html variant[id].price
+            $("#cart-form s.original.usd").html variant[id].old_price_usd
+            $("#cart-form p.current.usd").html variant[id].price_usd
 
     # reset "out of stock" display and update it
     if $(@).find("option:selected").hasClass("in-stock")
