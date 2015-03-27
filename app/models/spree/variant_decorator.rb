@@ -1,12 +1,14 @@
 Spree::Variant.class_eval do
-
+  include Spree::CurrencyHelpers
   include ActionView::Helpers::NumberHelper
 
   def to_hash
     price = self.prices.find_by(currency: Spree::Config[:presentation_currency]).display_price.to_html
     price_usd = self.prices.find_by(currency: "USD").display_price.to_html
-    old_price = self.product.old_price_in_won
-    old_price_usd = self.product.old_price_in_dollar
+    if self.product.old_price
+      old_price = display_currency(self.product.old_price, to: 'KRW')
+      old_price_usd = display_currency(self.product.old_price, to: 'USD')
+    end
     {
       :id => self.id,
       :in_stock => self.in_stock?,
