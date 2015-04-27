@@ -2,27 +2,21 @@
   <ul id="product-variants">
     <% index = 0 %>
     <% @product.grouped_option_values.each do |type, values| %>
-      <% if values.length == 1 %>
-        <li class="product-property">
-          <%= "#{type.presentation.force_encoding("utf-8")}: #{values.first.presentation}" %>
-        </li>
-      <% else %>
-        <li id="<%= dom_id(type) %>" class="variant-options select" data-index="<%= index %>">
-          <select class="variant-option-values">
-            <%= content_tag :option do %>
-              <%= type.presentation.force_encoding("utf-8") %>를 고르세요
+      <li id="<%= dom_id(type) %>" class="variant-options select" data-index="<%= index %>">
+        <select class="variant-option-values">
+          <%= content_tag :option do %>
+            <%= type.presentation.force_encoding("utf-8") %>를 고르세요
+          <% end %>
+          <% values.sort_by{|a| a.name.split(" ")[0].to_i}.each do |value| %>
+            <% classes = ["option-value"] %>
+            <% unless (variants = @product.variants_for_option_value(value)).empty? %>
+              <% classes << ("in-stock") if index == 0 %>
+              <%= content_tag :option, value.presentation , :class => classes, :id => "option-#{value.id}" %>
             <% end %>
-            <% values.sort_by{|a| a.name.split(" ")[0].to_i}.each do |value| %>
-              <% classes = ["option-value"] %>
-              <% unless (variants = @product.variants_for_option_value(value)).empty? %>
-                <% classes << ("in-stock") if index == 0 %>
-                <%= content_tag :option, value.presentation , :class => classes, :id => "option-#{value.id}" %>
-              <% end %>
-            <% end %>
-          </select>
-          <i class="icon-chevron-down"></i>
-        </li>
-      <% end %>
+          <% end %>
+        </select>
+        <i class="icon-chevron-down"></i>
+      </li>
       <% index += 1 %>
     <% end %>
 
