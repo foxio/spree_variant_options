@@ -27,9 +27,9 @@ window.variantOptions = (params) ->
       id = ids[0]
       $('#variant_id').val(variants[id].id)
       if $(@).find("option:selected").hasClass("in-stock")
-        $('#cart-form button[type=submit]').attr('disabled', false).html('<div class="icon"></div>카트에 담기')
+        $('#cart-form button[type=submit]').attr('disabled', false).html('<i class="icon-checkout-cart"></i>카트에 담기')
       else
-        $('#cart-form button[type=submit]').attr('disabled', true).html('<div class="icon"></div>사이즈를 골라주세요.')
+        $('#cart-form button[type=submit]').attr('disabled', true).html('<i class="icon-checkout-cart"></i>사이즈를 골라주세요.')
       $("#cart-form s.original.krw").html variants[id].old_price
       $("#cart-form p.current.krw").html variants[id].price
       $("#cart-form s.original.usd").html variants[id].old_price_usd
@@ -42,7 +42,7 @@ window.variantOptions = (params) ->
     otherOptionSelector = $("#option_type_" + otherOptionId)
 
     # disable the add to cart button – we'll reenable it later
-    $('#cart-form button[type=submit]').attr('disabled', true).html('<div class="icon"></div>사이즈를 골라주세요.')
+    $('#cart-form button[type=submit]').attr('disabled', true).html('<i class="icon-checkout-cart"></i>사이즈를 골라주세요.')
 
     # if this is the "select an option" option, reset availability on the other option and return
     if $(@)[0].selectedIndex == 0
@@ -70,10 +70,10 @@ window.variantOptions = (params) ->
           if $("#option-#{key}").val() == $("#option-#{key}").parent().val()
             $('#variant_id').val(variant[id].id)
             if $(@).find("option:selected").hasClass("in-stock")
-              $('#cart-form button[type=submit]').attr('disabled', false).html('<div class="icon"></div>카트에 담기')
+              $('#cart-form button[type=submit]').attr('disabled', false).html('<i class="icon-checkout-cart"></i>카트에 담기')
               parent.addClass('active')
             else
-              $('#cart-form button[type=submit]').attr('disabled', true).html('<div class="icon"></div>사이즈를 골라주세요.')
+              $('#cart-form button[type=submit]').attr('disabled', true).html('<i class="icon-checkout-cart"></i>사이즈를 골라주세요.')
               parent.removeClass('active')
             $("#cart-form s.original.krw").html variant[id].old_price
             $("#cart-form p.current.krw").html variant[id].price
