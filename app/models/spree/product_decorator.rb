@@ -4,7 +4,7 @@ Spree::Product.class_eval do
   end
 
   def grouped_option_values
-    values = option_values.reject { |ov| ov.name.include?("—") }
+    values = option_values.includes(:option_type).reject { |ov| ov.name.include?("—") }
     @_grouped_option_values ||= values.group_by(&:option_type)
     @_grouped_option_values.sort_by { |option_type, option_values| option_type.position }
   end
@@ -17,7 +17,7 @@ Spree::Product.class_eval do
   def variant_options_hash
     return @_variant_options_hash if @_variant_options_hash
     hash = {}
-    variants.includes(:option_values).each do |variant|
+    variants.includes({option_values: [:option_type]}, :prices).each do |variant|
       variant.option_values.each do |ov|
         otid = ov.option_type_id.to_s
         ovid = ov.id.to_s
