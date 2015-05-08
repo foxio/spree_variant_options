@@ -14,10 +14,21 @@ Spree::Product.class_eval do
     @_variants_for_option_value.select { |v| v.in_stock? }
   end
 
+  def variants_by_option
+    variants.includes({option_values: [:option_type]}).each_with_object({}) do |v, result|
+      next if !v.in_stock?
+      v.option_values.each do |o|
+        t = o.option_type
+        result[t] ||= {}
+        (result[t][o] ||= []) << v
+      end
+    end
+  end
+
   def variant_options_hash
     return @_variant_options_hash if @_variant_options_hash
     hash = {}
-    variants.includes({option_values: [:option_type]}, :prices).each do |variant|
+    variants.includes({option_values: [:option_type]}, :default_price).each do |variant|
       variant.option_values.each do |ov|
         otid = ov.option_type_id.to_s
         ovid = ov.id.to_s
