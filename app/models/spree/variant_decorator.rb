@@ -3,7 +3,7 @@ Spree::Variant.class_eval do
   include ActionView::Helpers::NumberHelper
 
   def to_hash
-    usd = self.prices.find_by(currency: 'USD').display_price
+    usd = self.default_price.display_price
     price_usd = usd.to_html
     price = display_currency(usd)
     if self.product.old_price
