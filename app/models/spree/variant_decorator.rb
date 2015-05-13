@@ -19,5 +19,12 @@ Spree::Variant.class_eval do
       :old_price_usd => old_price_usd
     }
   end
+  def self.current
+    where("(SELECT MAX(updated_at) FROM spree_variants AS v WHERE v.product_id = spree_variants.product_id) - updated_at <= interval '1 hour'")
+  end
 
+  def self.in_stock
+    # !deleted & updated
+    paranoia_scope.current
+  end
 end
