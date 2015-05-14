@@ -1,4 +1,5 @@
 Spree::Product.class_eval do
+
   def option_values
     @_option_values ||= Spree::OptionValue.for_product(self)
   end
@@ -10,13 +11,11 @@ Spree::Product.class_eval do
   end
 
   def variants_for_option_value(value)
-    @_variants_for_option_value = variants.joins(:option_values).where(:spree_option_values => {:id => value.id})
-    @_variants_for_option_value.select { |v| v.in_stock? }
+    @_variants_for_option_value = variants.in_stock.joins(:option_values).where(:spree_option_values => {:id => value.id})
   end
 
   def variants_by_option
-    variants.includes({option_values: [:option_type]}).each_with_object({}) do |v, result|
-      next if !v.in_stock?
+    variants.in_stock.includes({option_values: [:option_type]}).each_with_object({}) do |v, result|
       v.option_values.each do |o|
         t = o.option_type
         result[t] ||= {}
@@ -28,7 +27,7 @@ Spree::Product.class_eval do
   def variant_options_hash
     return @_variant_options_hash if @_variant_options_hash
     hash = {}
-    variants.includes({option_values: [:option_type]}, :default_price).each do |variant|
+    variants.in_stock.includes({option_values: [:option_type]}, :default_price).each do |variant|
       variant.option_values.each do |ov|
         otid = ov.option_type_id.to_s
         ovid = ov.id.to_s
@@ -39,5 +38,4 @@ Spree::Product.class_eval do
     end
     @_variant_options_hash = hash
   end
-
 end
