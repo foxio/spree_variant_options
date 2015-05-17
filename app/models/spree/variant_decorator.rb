@@ -20,7 +20,7 @@ Spree::Variant.class_eval do
     }
   end
   def self.current
-    where("(SELECT MAX(updated_at) FROM spree_variants AS v WHERE v.product_id = spree_variants.product_id) - updated_at <= interval '1 hour'")
+    where("(SELECT MAX(updated_at) FROM spree_variants AS v WHERE v.product_id = spree_variants.product_id AND v.is_master = 'f' AND v.deleted_at is NULL) - updated_at <= interval '1 hour'")
   end
 
   def self.in_stock
