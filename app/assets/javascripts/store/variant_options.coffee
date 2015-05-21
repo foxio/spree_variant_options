@@ -59,7 +59,6 @@ window.variantOptions = (params) ->
 
     # update in-stock status of the other option, and find the variant_id if both options have been selected
     otherOptionSelector.find(".option-value").removeClass("in-stock")
-    variant_id
     variants = options[otherOptionId]
     for key,variant of variants
       for id in ids
