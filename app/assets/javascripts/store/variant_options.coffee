@@ -24,7 +24,7 @@ window.variantOptions = (params) ->
       variants = options[optionId][elemId]
       ids = for key of variants
         key
-      id = ids[0]
+      id = ids.pop()
       $('#variant_id').val(variants[id].id)
       if $(@).find("option:selected").hasClass("in-stock")
         $('#cart-form button[type=submit]').attr('disabled', false).html('<i class="icon-checkout-cart"></i>카트에 담기')
