@@ -32,8 +32,12 @@ window.variantOptions = (params) ->
         $('#cart-form button[type=submit]').attr('disabled', true).html('<i class="icon-checkout-cart"></i>사이즈를 골라주세요.')
       $("#cart-form s.original.krw").html variants[id].old_price
       $("#cart-form p.current.krw").html variants[id].price
+      $("#cart-form p.lshipping.krw").html variants[id].local_shipping_price
+      $("#cart-form p.tshipping.krw").html variants[id].total_shipping_price
       $("#cart-form s.original.usd").html variants[id].old_price_usd
       $("#cart-form p.current.usd").html variants[id].price_usd
+      $("#cart-form p.lshipping.usd").html variants[id].local_shipping_price_usd
+      $("#cart-form p.tshipping.usd").html variants[id].total_shipping_price_usd
       return
 
 
@@ -76,8 +80,12 @@ window.variantOptions = (params) ->
               parent.removeClass('active')
             $("#cart-form s.original.krw").html variant[id].old_price
             $("#cart-form p.current.krw").html variant[id].price
+            $("#cart-form p.lshipping.krw").html variant[id].local_shipping_price
+            $("#cart-form p.tshipping.krw").html variant[id].total_shipping_price
             $("#cart-form s.original.usd").html variant[id].old_price_usd
             $("#cart-form p.current.usd").html variant[id].price_usd
+            $("#cart-form p.lshipping.usd").html variant[id].local_shipping_price_usd
+            $("#cart-form p.tshipping.usd").html variant[id].total_shipping_price_usd
 
     # reset "out of stock" display and update it
     if $(@).find("option:selected").hasClass("in-stock")

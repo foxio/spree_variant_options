@@ -10,13 +10,21 @@ Spree::Variant.class_eval do
       old_price_usd = display_currency(self.product.old_price, to: 'USD')
       old_price = display_currency(self.product.old_price, to: 'KRW')
     end
+    local_shipping_price_usd = display_currency(self.local_shipping_price, to: 'USD')
+    local_shipping_price = display_currency(self.local_shipping_price, to: 'KRW')
+    total_shipping_price_usd = display_currency(self.shipping_total, to: 'USD')
+    total_shipping_price = display_currency(self.shipping_total, to: 'KRW')
     {
       :id => self.id,
       :in_stock => self.in_stock?,
       :price => price,
       :old_price => old_price,
+      :local_shipping_price => local_shipping_price,
+      :total_shipping_price => total_shipping_price,
       :price_usd => price_usd,
-      :old_price_usd => old_price_usd
+      :old_price_usd => old_price_usd,
+      :local_shipping_price_usd => local_shipping_price_usd,
+      :total_shipping_price_usd => total_shipping_price_usd
     }
   end
   def self.current
