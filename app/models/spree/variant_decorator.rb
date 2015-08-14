@@ -17,8 +17,8 @@ Spree::Variant.class_eval do
       old_price_usd: old_price_usd,
       local_shipping_price: display_currency(self.local_shipping_total, to: 'KRW'),
       local_shipping_price_usd: display_currency(self.local_shipping_total, to: 'USD'),
-      international_shipping_price_usd: display_currency(self.international_shipping_total, to: 'USD')
-      international_shipping_price: display_currency(self.international_shipping_total, to: 'KRW')
+      international_shipping_price_usd: display_currency(self.international_shipping_total, to: 'USD'),
+      international_shipping_price: display_currency(self.international_shipping_total, to: 'KRW'),
       total_shipping_price: display_currency(self.shipping_total, to: 'KRW'),
       total_shipping_price_usd: display_currency(self.shipping_total, to: 'USD')
     }
