@@ -20,7 +20,10 @@ Spree::Admin::ImagesController.class_eval do
       option_values_array.each do |option_value|
         option_values_combinations = option_values_combinations.product(option_value)
       end
-      option_values_combinations = option_values_combinations.map(&:flatten) if option_values_combinations.count > 1
+
+      # FIXME: remove and/or fix this line, commenting it out makes image uploads
+      #        work, so it might not be needed at all. MRF LHC-5
+      # option_values_combinations = option_values_combinations.map(&:flatten) if option_values_combinations.count > 1
 
       @product.variants.each do |variant|
         option_values_combinations.each do |ov_combination|
