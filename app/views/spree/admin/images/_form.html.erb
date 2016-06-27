@@ -5,8 +5,7 @@
       <%= f.file_field :attachment %>
     </div>
 
-    <!-- <%= content_tag :div, '', id: 'error-message' , data: { one_option_error: Spree.t(:one_option_per_type_must_be_selected) } %> -->
-    <div id="error-message" data-one-option-error="<span>You Must Check At Least One Option</span>"></div>
+    <div id="error-message" data-one-option-error="You Must Check At Least One Option"</div>
 
     <% if @grouped_option_values.empty? %>
       <div data-hook="variant" class="field">
@@ -30,7 +29,10 @@
             <ul class="option-type-values">
               <% option_values.each_with_index do |option_value, index| %>
                 <li>
-                  <%= check_box_tag "image[viewable_id][#{option_type.id}][]", option_value.id, false, class: 'option-value', id: "#{option_value.id}_#{index}" %>
+                  <%= check_box_tag("image[viewable_id][#{option_type.id}][]",
+                                    option_value.id, false,
+                                    class: 'option-value',
+                                    id: "#{option_value.id}_#{index}") %>
                   <%= label_tag "image[viewable_id][#{option_type.id}][#{option_type.id}]", option_value.presentation, for: "#{option_value.id}_#{index}" %>
                 </li>
               <% end %>
@@ -52,13 +54,6 @@
 
 <div class="clear"></div>
 
-
-
-
-
-
-
-
 <script type="text/javascript">
 //<![CDATA[
   (function($){
@@ -77,4 +72,4 @@
 
   })(jQuery);
   //]]>
-  </script>
+</script>
